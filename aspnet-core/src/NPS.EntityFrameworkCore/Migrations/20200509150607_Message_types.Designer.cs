@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NPS.EntityFrameworkCore;
 
 namespace NPS.Migrations
 {
     [DbContext(typeof(NPSDbContext))]
-    partial class NPSDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200509150607_Message_types")]
+    partial class Message_types
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1543,7 +1545,7 @@ namespace NPS.Migrations
 
                     b.HasIndex("MessageTypeId");
 
-                    b.ToTable("messages");
+                    b.ToTable("mensagens");
                 });
 
             modelBuilder.Entity("NPS.MultiTenancy.Tenant", b =>
