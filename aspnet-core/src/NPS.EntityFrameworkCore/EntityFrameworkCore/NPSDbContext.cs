@@ -5,11 +5,13 @@ using NPS.Authorization.Users;
 using NPS.MultiTenancy;
 using NPS.Messages;
 using NPS.MessageTypes;
+using NPS.Campaings;
 
 namespace NPS.EntityFrameworkCore
 {
     public class NPSDbContext : AbpZeroDbContext<Tenant, Role, User, NPSDbContext>
     {
+        public DbSet<Campaing> Mensagens { get; set; }
         public DbSet<Message> Mensagens { get; set; }
         public DbSet<MessageType> MessageTypes { get; set; }
 

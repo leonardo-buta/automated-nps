@@ -1,11 +1,11 @@
 ﻿using Abp.Domain.Entities;
 using System;
 
-namespace NPS.Campanhas
+namespace NPS.Campaings
 {
-    public class Campanha : Entity
+    public class Campaing : AuditedEntity
     {
-        public string Nome { get; set; }
+        public string Name { get; set; }
 
         public string Descricao { get; set; }
 

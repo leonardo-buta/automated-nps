@@ -17,6 +17,8 @@
     <Compile Remove="Migrations\20200508025844_Tabela_Mensagem.Designer.cs" />
     <Compile Remove="Migrations\20200508025954_Tabela_Mensagem.cs" />
     <Compile Remove="Migrations\20200508025954_Tabela_Mensagem.Designer.cs" />
+    <Compile Remove="Migrations\20200509184937_Required_MessageType.cs" />
+    <Compile Remove="Migrations\20200509184937_Required_MessageType.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.3" />
