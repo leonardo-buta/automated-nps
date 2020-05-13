@@ -40,6 +40,9 @@ import { ResetPasswordDialogComponent } from './users/reset-password/reset-passw
 import { MessagesComponent } from './messages/messages.component';
 import { CreateMessageDialogComponent } from './messages/create-message/create-message-dialog.component';
 import { EditMessageDialogComponent } from './messages/edit-message/edit-message-dialog.component';
+import { CampaignsComponent } from './campaigns/campaigns.component';
+import { CreateCampaignDialogComponent } from './campaigns/create-campaign/create-campaign-dialog.component';
+import { EditCampaignDialogComponent } from './campaigns/edit-campaign/edit-campaign-dialog.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +71,10 @@ import { EditMessageDialogComponent } from './messages/edit-message/edit-message
     ResetPasswordDialogComponent,
     MessagesComponent,
     CreateMessageDialogComponent,
-    EditMessageDialogComponent
+    EditMessageDialogComponent,
+    CampaignsComponent,
+    CreateCampaignDialogComponent,
+    EditCampaignDialogComponent
   ],
   imports: [
     CommonModule,

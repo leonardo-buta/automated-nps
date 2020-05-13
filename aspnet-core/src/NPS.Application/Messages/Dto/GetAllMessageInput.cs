@@ -4,14 +4,10 @@ using Abp.AutoMapper;
 namespace NPS.Messages.Dto
 {
     [AutoMap(typeof(Message))]
-    public class MessageDto : EntityDto<int>
+    public class GetAllMessageInput : PagedAndSortedResultRequestDto
     {
         public string Name { get; set; }
 
         public string Text { get; set; }
-
-        public string MessageType { get; set; }
-
-        public string Campaing { get; set; }
     }
 }

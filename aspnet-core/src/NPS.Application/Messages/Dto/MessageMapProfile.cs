@@ -6,7 +6,8 @@ namespace NPS.Messages.Dto
     {
         public MessageMapProfile()
         {
-            CreateMap<Message, MessageDto>().ForMember(x => x.MessageType, opt => opt.MapFrom(x => x.MessageType.Type));
+            CreateMap<Message, MessageDto>().ForMember(x => x.MessageType, opt => opt.MapFrom(x => x.MessageType.Type))
+                                            .ForMember(x => x.Campaing, opt => opt.MapFrom(x => x.Campaing.Name));
         }
     }
 }
