@@ -1,1 +1,47 @@
-<p>create-campaign works!</p>
+<form autocomplete="off" #createCampaignForm="ngForm" (ngSubmit)="save()">
+  <h1 mat-dialog-title>Criar nova campanha</h1>
+  <mat-dialog-content>
+    <mat-tab-group>
+      <mat-tab [label]="'Details' | localize">
+        <br />
+        <div class="row-fluid">
+          <div class="col-md-12">
+            <mat-form-field>
+              <input matInput name="Name" placeholder="Nome" [(ngModel)]="campaign.name" required minlength="1"
+                maxlength="32" />
+            </mat-form-field>
+            <mat-form-field>
+              <textarea matInput name="Description" required placeholder="Description"
+                [(ngModel)]="campaign.description"></textarea>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field>
+              <mat-label>Data Início</mat-label>
+              <input matInput [matDatepicker]="startDate" disabled>
+              <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+              <mat-datepicker #startDate disabled="false"></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field>
+              <mat-label>Data Fim</mat-label>
+              <input matInput [matDatepicker]="endDate" disabled>
+              <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+              <mat-datepicker #endDate disabled="false"></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-dialog-content>
+  <div mat-dialog-actions align="end">
+    <button mat-button type="button" [disabled]="saving" (click)="close(false)">
+      {{ "Cancel" | localize }}
+    </button>
+    <button mat-flat-button type="submit" flex="15" color="primary"
+      [disabled]="!createCampaignForm.form.valid || saving">
+      {{ "Save" | localize }}
+    </button>
+  </div>
+</form>

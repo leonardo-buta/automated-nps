@@ -100,7 +100,9 @@ import { EditCampaignDialogComponent } from './campaigns/edit-campaign/edit-camp
     // users
     CreateUserDialogComponent,
     EditUserDialogComponent,
-    ResetPasswordDialogComponent
+    ResetPasswordDialogComponent,
+    CreateCampaignDialogComponent,
+    EditCampaignDialogComponent
   ]
 })
 export class AppModule {}

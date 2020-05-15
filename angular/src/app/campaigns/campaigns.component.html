@@ -2,7 +2,7 @@
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <div class="card main-content">
           <div class="header">
-              <h2>{{ "Roles" | localize }}</h2>
+              <h2>Campanhas</h2>
               <ul class="header-dropdown m-r--5">
                   <li>
                       <button mat-icon-button [matMenuTriggerFor]="headerMenu" class="header-dropdown-mat-icon-button">
@@ -60,11 +60,11 @@
                                   <mat-icon>menu</mat-icon>
                               </button>
                               <mat-menu #actionsMenu="matMenu">
-                                  <button mat-menu-item (click)="editRole(role)">
+                                  <button mat-menu-item (click)="editCampaign(campaign)">
                                       <mat-icon>edit</mat-icon>
                                       <span>{{ "Edit" | localize }}</span>
                                   </button>
-                                  <button mat-menu-item (click)="delete(role)">
+                                  <button mat-menu-item (click)="delete(campaign)">
                                       <mat-icon>delete</mat-icon>
                                       <span>{{ "Delete" | localize }}</span>
                                   </button>
@@ -77,7 +77,7 @@
                   <abp-pagination-controls (pageChange)="getDataPage($event)" id="server">
                   </abp-pagination-controls>
               </div>
-              <button mat-mini-fab color="primary" class="pull-right" (click)="createRole()">
+              <button mat-mini-fab color="primary" class="pull-right" (click)="createCampaign()">
                   <mat-icon>add</mat-icon>
               </button>
           </div>
