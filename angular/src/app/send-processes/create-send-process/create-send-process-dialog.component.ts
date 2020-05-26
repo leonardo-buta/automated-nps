@@ -1,50 +1,45 @@
-import { Component, Injector, Inject, OnInit, Optional } from '@angular/core';
-import {
-  MatDialogRef,
-  MAT_DIALOG_DATA
-} from '@angular/material';
+import { Component, Injector, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material';
 import { finalize } from 'rxjs/operators';
-import * as _ from 'lodash';
 import { AppComponentBase } from '@shared/app-component-base';
 import {
   PermissionDto,
-  CampaignDto,
-  CampaignServiceProxy
+  SendProcessDto,
+  SendProcessServiceProxy
 } from '@shared/service-proxies/service-proxies';
 
 @Component({
-  templateUrl: 'edit-campaign-dialog.component.html'
+  templateUrl: 'create-send-process-dialog.component.html',
+  styleUrls: ['./create-send-process-dialog.component.css']
 })
-export class EditCampaignDialogComponent extends AppComponentBase
+export class CreateSendProcessDialogComponent extends AppComponentBase
   implements OnInit {
   saving = false;
-  campaign: CampaignDto = new CampaignDto();
+  sendProcess: SendProcessDto = new SendProcessDto();
   permissions: PermissionDto[] = [];
   grantedPermissionNames: string[] = [];
   checkedPermissionsMap: { [key: string]: boolean } = {};
+  defaultPermissionCheckedStatus = true;
 
   constructor(
     injector: Injector,
-    private _campaignService: CampaignServiceProxy,
-    private _dialogRef: MatDialogRef<EditCampaignDialogComponent>,
-    @Optional() @Inject(MAT_DIALOG_DATA) private _id: number
+    private _sendProcessService: SendProcessServiceProxy,
+    private _dialogRef: MatDialogRef<CreateSendProcessDialogComponent>
   ) {
     super(injector);
   }
 
   ngOnInit(): void {
-    this._campaignService
-      .get(this._id)
-      .subscribe((result: CampaignDto) => {
-        this.campaign.init(result);
-      });
+    
   }
 
   save(): void {
     this.saving = true;
+    const sendProcess = new SendProcessDto();
+    sendProcess.init(this.sendProcess);
 
-    this._campaignService
-      .update(this.campaign)
+    this._sendProcessService
+      .create(sendProcess)
       .pipe(
         finalize(() => {
           this.saving = false;

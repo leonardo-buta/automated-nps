@@ -8,6 +8,7 @@ import { RolesComponent } from 'app/roles/roles.component';
 import { ChangePasswordComponent } from './users/change-password/change-password.component';
 import { CampaignsComponent } from './campaigns/campaigns.component';
 import { MessagesComponent } from './messages/messages.component';
+import { SendProcessesComponent } from './send-processes/send-processes.component';
 
 @NgModule({
     imports: [
@@ -19,6 +20,7 @@ import { MessagesComponent } from './messages/messages.component';
                     { path: 'home', component: HomeComponent,  canActivate: [AppRouteGuard] },
                     { path: 'campaigns', component: CampaignsComponent, canActivate: [AppRouteGuard] },
                     { path: 'messages', component: MessagesComponent, canActivate: [AppRouteGuard] },
+                    { path: 'send-processes', component: SendProcessesComponent, canActivate: [AppRouteGuard] },
                     { path: 'users', component: UsersComponent, data: { permission: 'Pages.Users' }, canActivate: [AppRouteGuard] },
                     { path: 'roles', component: RolesComponent, data: { permission: 'Pages.Roles' }, canActivate: [AppRouteGuard] },
                     // { path: 'tenants', component: TenantsComponent, data: { permission: 'Pages.Tenants' }, canActivate: [AppRouteGuard] },

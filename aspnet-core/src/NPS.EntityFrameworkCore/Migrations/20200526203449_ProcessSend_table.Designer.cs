@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NPS.EntityFrameworkCore;
 
 namespace NPS.Migrations
 {
     [DbContext(typeof(NPSDbContext))]
-    partial class NPSDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200526203449_ProcessSend_table")]
+    partial class ProcessSend_table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

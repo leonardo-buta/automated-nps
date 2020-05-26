@@ -43,6 +43,9 @@ import { EditMessageDialogComponent } from './messages/edit-message/edit-message
 import { CampaignsComponent } from './campaigns/campaigns.component';
 import { CreateCampaignDialogComponent } from './campaigns/create-campaign/create-campaign-dialog.component';
 import { EditCampaignDialogComponent } from './campaigns/edit-campaign/edit-campaign-dialog.component';
+import { SendProcessesComponent } from './send-processes/send-processes.component';
+import { CreateSendProcessDialogComponent } from './send-processes/create-send-process/create-send-process-dialog.component';
+import { EditSendProcessDialogComponent } from './send-processes/edit-send-process/edit-send-process-dialog.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +77,10 @@ import { EditCampaignDialogComponent } from './campaigns/edit-campaign/edit-camp
     EditMessageDialogComponent,
     CampaignsComponent,
     CreateCampaignDialogComponent,
-    EditCampaignDialogComponent
+    EditCampaignDialogComponent,
+    SendProcessesComponent,
+    CreateSendProcessDialogComponent,
+    EditSendProcessDialogComponent
   ],
   imports: [
     CommonModule,
