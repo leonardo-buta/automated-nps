@@ -1,7 +1,7 @@
 ﻿using Abp.Domain.Entities.Auditing;
 using System;
 
-namespace NPS.Campaings
+namespace NPS.Campaigns
 {
     public class Campaign : AuditedEntity
     {

@@ -108,7 +108,9 @@ import { EditSendProcessDialogComponent } from './send-processes/edit-send-proce
     EditUserDialogComponent,
     ResetPasswordDialogComponent,
     CreateCampaignDialogComponent,
-    EditCampaignDialogComponent
+    EditCampaignDialogComponent,
+    CreateMessageDialogComponent,
+    EditMessageDialogComponent
   ]
 })
 export class AppModule {}

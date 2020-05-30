@@ -2977,7 +2977,7 @@ export class CreateMessageInput implements ICreateMessageInput {
     name: string;
     text: string;
     messageTypeId: number;
-    campaingId: number;
+    campaignId: number;
 
     constructor(data?: ICreateMessageInput) {
         if (data) {
@@ -2993,7 +2993,7 @@ export class CreateMessageInput implements ICreateMessageInput {
             this.name = _data["name"];
             this.text = _data["text"];
             this.messageTypeId = _data["messageTypeId"];
-            this.campaingId = _data["campaingId"];
+            this.campaignId = _data["campaignId"];
         }
     }
 
@@ -3009,7 +3009,7 @@ export class CreateMessageInput implements ICreateMessageInput {
         data["name"] = this.name;
         data["text"] = this.text;
         data["messageTypeId"] = this.messageTypeId;
-        data["campaingId"] = this.campaingId;
+        data["campaignId"] = this.campaignId;
         return data; 
     }
 
@@ -3025,14 +3025,15 @@ export interface ICreateMessageInput {
     name: string;
     text: string;
     messageTypeId: number;
-    campaingId: number;
+    campaignId: number;
 }
 
 export class MessageDto implements IMessageDto {
     name: string | undefined;
     text: string | undefined;
     messageType: string | undefined;
-    campaing: string | undefined;
+    campaign: string | undefined;
+    creationTime: moment.Moment;
     id: number;
 
     constructor(data?: IMessageDto) {
@@ -3049,7 +3050,8 @@ export class MessageDto implements IMessageDto {
             this.name = _data["name"];
             this.text = _data["text"];
             this.messageType = _data["messageType"];
-            this.campaing = _data["campaing"];
+            this.campaign = _data["campaign"];
+            this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
             this.id = _data["id"];
         }
     }
@@ -3066,7 +3068,8 @@ export class MessageDto implements IMessageDto {
         data["name"] = this.name;
         data["text"] = this.text;
         data["messageType"] = this.messageType;
-        data["campaing"] = this.campaing;
+        data["campaign"] = this.campaign;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
         data["id"] = this.id;
         return data; 
     }
@@ -3083,7 +3086,8 @@ export interface IMessageDto {
     name: string | undefined;
     text: string | undefined;
     messageType: string | undefined;
-    campaing: string | undefined;
+    campaign: string | undefined;
+    creationTime: moment.Moment;
     id: number;
 }
 
@@ -3092,7 +3096,7 @@ export class UpdateMessageInput implements IUpdateMessageInput {
     name: string;
     text: string;
     messageTypeId: number;
-    campaingId: number;
+    campaignId: number;
 
     constructor(data?: IUpdateMessageInput) {
         if (data) {
@@ -3109,7 +3113,7 @@ export class UpdateMessageInput implements IUpdateMessageInput {
             this.name = _data["name"];
             this.text = _data["text"];
             this.messageTypeId = _data["messageTypeId"];
-            this.campaingId = _data["campaingId"];
+            this.campaignId = _data["campaignId"];
         }
     }
 
@@ -3126,7 +3130,7 @@ export class UpdateMessageInput implements IUpdateMessageInput {
         data["name"] = this.name;
         data["text"] = this.text;
         data["messageTypeId"] = this.messageTypeId;
-        data["campaingId"] = this.campaingId;
+        data["campaignId"] = this.campaignId;
         return data; 
     }
 
@@ -3143,7 +3147,7 @@ export interface IUpdateMessageInput {
     name: string;
     text: string;
     messageTypeId: number;
-    campaingId: number;
+    campaignId: number;
 }
 
 export class MessageDtoPagedResultDto implements IMessageDtoPagedResultDto {

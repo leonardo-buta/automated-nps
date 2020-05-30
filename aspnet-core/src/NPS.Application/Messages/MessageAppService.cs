@@ -2,7 +2,7 @@
 using Abp.Application.Services.Dto;
 using Abp.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
-using NPS.Campaings;
+using NPS.Campaigns;
 using NPS.Messages.Dto;
 using NPS.MessageTypes;
 using System.Collections.Generic;
@@ -13,13 +13,13 @@ namespace NPS.Messages
     public class MessageAppService : AsyncCrudAppService<Message, MessageDto, int, GetAllMessageInput, CreateMessageInput, UpdateMessageInput>, IMessageAppService
     {
         private readonly IRepository<MessageType> _messageTypeRepository;
-        private readonly IRepository<Campaign> _campaingRepository;
+        private readonly IRepository<Campaign> _campaignRepository;
 
         public MessageAppService(IRepository<Message> repository, IRepository<MessageType> messageTypeRepository, IRepository<Campaign> campaingRepository)
             : base(repository)
         {
             _messageTypeRepository = messageTypeRepository;
-            _campaingRepository = campaingRepository;
+            _campaignRepository = campaingRepository;
         }
 
         public override async Task<MessageDto> CreateAsync(CreateMessageInput input)
@@ -27,7 +27,7 @@ namespace NPS.Messages
             var message = ObjectMapper.Map<Message>(input);
 
             message.MessageType = await _messageTypeRepository.GetAsync(input.MessageTypeId);
-            message.Campaing = await _campaingRepository.GetAsync(input.CampaingId);
+            message.Campaign = await _campaignRepository.GetAsync(input.CampaignId);
 
             await Repository.InsertAsync(message);
 
@@ -41,7 +41,7 @@ namespace NPS.Messages
             ObjectMapper.Map(input, message);
 
             message.MessageType = await _messageTypeRepository.GetAsync(input.MessageTypeId);
-            message.Campaing = await _campaingRepository.GetAsync(input.CampaingId);
+            message.Campaign = await _campaignRepository.GetAsync(input.CampaignId);
 
             await Repository.UpdateAsync(message);
 

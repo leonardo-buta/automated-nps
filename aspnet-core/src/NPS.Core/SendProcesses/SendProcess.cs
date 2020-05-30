@@ -1,5 +1,5 @@
 ﻿using Abp.Domain.Entities;
-using NPS.Campaings;
+using NPS.Campaigns;
 using NPS.Messages;
 using System;
 

@@ -1,5 +1,6 @@
 using Abp.Application.Services.Dto;
 using Abp.AutoMapper;
+using System;
 
 namespace NPS.Messages.Dto
 {
@@ -12,6 +13,8 @@ namespace NPS.Messages.Dto
 
         public string MessageType { get; set; }
 
-        public string Campaing { get; set; }
+        public string Campaign { get; set; }
+
+        public DateTime CreationTime { get; set; }
     }
 }

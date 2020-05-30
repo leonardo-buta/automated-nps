@@ -1,7 +1,6 @@
 ﻿using Abp.Application.Services;
 using Abp.Domain.Repositories;
 using NPS.Campaigns.Dto;
-using NPS.Campaings;
 
 namespace NPS.Campaigns
 {

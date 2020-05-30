@@ -5,7 +5,7 @@ using NPS.Authorization.Users;
 using NPS.MultiTenancy;
 using NPS.Messages;
 using NPS.MessageTypes;
-using NPS.Campaings;
+using NPS.Campaigns;
 using NPS.SendProcesses;
 using NPS.Mailings;
 

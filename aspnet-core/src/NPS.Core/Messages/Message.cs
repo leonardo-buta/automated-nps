@@ -1,5 +1,5 @@
 ﻿using Abp.Domain.Entities.Auditing;
-using NPS.Campaings;
+using NPS.Campaigns;
 using NPS.MessageTypes;
 
 namespace NPS.Messages
@@ -12,6 +12,6 @@ namespace NPS.Messages
 
         public MessageType MessageType { get; set; }
 
-        public Campaign Campaing { get; set; }
+        public Campaign Campaign { get; set; }
     }
 }

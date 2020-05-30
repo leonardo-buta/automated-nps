@@ -1,6 +1,5 @@
 using Abp.Application.Services.Dto;
 using Abp.AutoMapper;
-using NPS.Campaings;
 using System;
 
 namespace NPS.Campaigns.Dto

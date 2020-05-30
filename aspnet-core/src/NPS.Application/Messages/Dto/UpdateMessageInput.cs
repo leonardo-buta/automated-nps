@@ -21,6 +21,6 @@ namespace NPS.Messages.Dto
         public int MessageTypeId { get; set; }
 
         [Required]
-        public int CampaingId { get; set; }
+        public int CampaignId { get; set; }
     }
 }
