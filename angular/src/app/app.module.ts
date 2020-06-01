@@ -110,7 +110,9 @@ import { EditSendProcessDialogComponent } from './send-processes/edit-send-proce
     CreateCampaignDialogComponent,
     EditCampaignDialogComponent,
     CreateMessageDialogComponent,
-    EditMessageDialogComponent
+    EditMessageDialogComponent,
+    CreateSendProcessDialogComponent,
+    EditSendProcessDialogComponent
   ]
 })
 export class AppModule {}

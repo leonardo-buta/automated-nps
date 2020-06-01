@@ -1,1 +1,56 @@
-<p>create-send-process works!</p>
+<form autocomplete="off" #createSendProcessForm="ngForm" (ngSubmit)="save()">
+  <h1 mat-dialog-title>Nova Mensagem</h1>
+  <mat-dialog-content style="width:900px;height:85%;">
+    <mat-tab-group>
+      <mat-tab label="Cadastro">
+        <br />
+        <div class="row-fluid">
+          <div class="col-md-4">
+            <mat-form-field>
+              <input matInput name="Name" placeholder="Nome" [(ngModel)]="sendProcess.name" required minlength="2"
+                maxlength="32" />
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field>
+              <mat-select name="Message" placeholder="Mensagem" [(ngModel)]="sendProcess.messageId" required>
+                <mat-option *ngFor="let message of messages" [value]="message.id">
+                  {{message.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field>
+              <input matInput name="ScheduleDate" placeholder="Data de Agendamento"
+                [(ngModel)]="sendProcess.scheduleDate" required minlength="2" maxlength="32" />
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <h3>Upload de Contatos</h3>
+            <div class="col-md-12">
+              <input type="file" id="myFile">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field>
+              <mat-select name="Separator" placeholder="Delimitador" [(ngModel)]="sendProcess.separator" required>
+                <mat-option value=";">; (Ponto e Vírgula)</mat-option>
+                <mat-option value="|">| (Pipe)</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-dialog-content>
+  <div mat-dialog-actions align="end">
+    <button mat-button type="button" [disabled]="saving" (click)="close(false)">
+      {{ "Cancel" | localize }}
+    </button>
+    <button mat-flat-button type="submit" flex="15" color="primary"
+      [disabled]="!createSendProcessForm.form.valid || saving">
+      {{ "Save" | localize }}
+    </button>
+  </div>
+</form>

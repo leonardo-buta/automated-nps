@@ -44,7 +44,7 @@ export class SendProcessesComponent extends PagedListingComponentBase<SendProces
     request.keyword = this.keyword;
 
     this._sendProcessService
-      .getAll(request.keyword, request.skipCount, request.maxResultCount)
+      .getAll(undefined, request.keyword, request.skipCount, request.maxResultCount)
       .pipe(
         finalize(() => {
           finishedCallback();

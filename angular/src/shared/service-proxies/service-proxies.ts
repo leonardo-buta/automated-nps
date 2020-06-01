@@ -1271,69 +1271,16 @@ export class SendProcessServiceProxy {
     }
 
     /**
-     * @param id (optional) 
-     * @return Success
-     */
-    get(id: number | undefined): Observable<SendProcessDto> {
-        let url_ = this.baseUrl + "/api/services/app/SendProcess/Get?";
-        if (id === null)
-            throw new Error("The parameter 'id' cannot be null.");
-        else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGet(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGet(<any>response_);
-                } catch (e) {
-                    return <Observable<SendProcessDto>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<SendProcessDto>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processGet(response: HttpResponseBase): Observable<SendProcessDto> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = SendProcessDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<SendProcessDto>(<any>null);
-    }
-
-    /**
+     * @param name (optional) 
      * @param sorting (optional) 
      * @param skipCount (optional) 
      * @param maxResultCount (optional) 
      * @return Success
      */
-    getAll(sorting: string | null | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<SendProcessDtoPagedResultDto> {
+    getAll(name: string | null | undefined, sorting: string | null | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<SendProcessDtoPagedResultDto> {
         let url_ = this.baseUrl + "/api/services/app/SendProcess/GetAll?";
+        if (name !== undefined && name !== null)
+            url_ += "Name=" + encodeURIComponent("" + name) + "&";
         if (sorting !== undefined && sorting !== null)
             url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
         if (skipCount === null)
@@ -1394,7 +1341,7 @@ export class SendProcessServiceProxy {
      * @param body (optional) 
      * @return Success
      */
-    create(body: SendProcessDto | undefined): Observable<SendProcessDto> {
+    create(body: CreateSendProcessInput | undefined): Observable<SendProcessDto> {
         let url_ = this.baseUrl + "/api/services/app/SendProcess/Create";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -1447,10 +1394,66 @@ export class SendProcessServiceProxy {
     }
 
     /**
+     * @param id (optional) 
+     * @return Success
+     */
+    get(id: number | undefined): Observable<SendProcessDto> {
+        let url_ = this.baseUrl + "/api/services/app/SendProcess/Get?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGet(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGet(<any>response_);
+                } catch (e) {
+                    return <Observable<SendProcessDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<SendProcessDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGet(response: HttpResponseBase): Observable<SendProcessDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = SendProcessDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<SendProcessDto>(<any>null);
+    }
+
+    /**
      * @param body (optional) 
      * @return Success
      */
-    update(body: SendProcessDto | undefined): Observable<SendProcessDto> {
+    update(body: UpdateSendProcessInput | undefined): Observable<SendProcessDto> {
         let url_ = this.baseUrl + "/api/services/app/SendProcess/Update";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -3797,10 +3800,8 @@ export interface IRoleDtoPagedResultDto {
 
 export class SendProcessDto implements ISendProcessDto {
     name: string | undefined;
-    separator: string | undefined;
-    campaignId: number;
-    messageId: number;
-    sendDate: moment.Moment;
+    scheduleDate: moment.Moment;
+    statusSendProcess: string | undefined;
     id: number;
 
     constructor(data?: ISendProcessDto) {
@@ -3815,10 +3816,8 @@ export class SendProcessDto implements ISendProcessDto {
     init(_data?: any) {
         if (_data) {
             this.name = _data["name"];
-            this.separator = _data["separator"];
-            this.campaignId = _data["campaignId"];
-            this.messageId = _data["messageId"];
-            this.sendDate = _data["sendDate"] ? moment(_data["sendDate"].toString()) : <any>undefined;
+            this.scheduleDate = _data["scheduleDate"] ? moment(_data["scheduleDate"].toString()) : <any>undefined;
+            this.statusSendProcess = _data["statusSendProcess"];
             this.id = _data["id"];
         }
     }
@@ -3833,10 +3832,8 @@ export class SendProcessDto implements ISendProcessDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["name"] = this.name;
-        data["separator"] = this.separator;
-        data["campaignId"] = this.campaignId;
-        data["messageId"] = this.messageId;
-        data["sendDate"] = this.sendDate ? this.sendDate.toISOString() : <any>undefined;
+        data["scheduleDate"] = this.scheduleDate ? this.scheduleDate.toISOString() : <any>undefined;
+        data["statusSendProcess"] = this.statusSendProcess;
         data["id"] = this.id;
         return data; 
     }
@@ -3851,10 +3848,8 @@ export class SendProcessDto implements ISendProcessDto {
 
 export interface ISendProcessDto {
     name: string | undefined;
-    separator: string | undefined;
-    campaignId: number;
-    messageId: number;
-    sendDate: moment.Moment;
+    scheduleDate: moment.Moment;
+    statusSendProcess: string | undefined;
     id: number;
 }
 
@@ -3911,6 +3906,120 @@ export class SendProcessDtoPagedResultDto implements ISendProcessDtoPagedResultD
 export interface ISendProcessDtoPagedResultDto {
     totalCount: number;
     items: SendProcessDto[] | undefined;
+}
+
+export class CreateSendProcessInput implements ICreateSendProcessInput {
+    name: string;
+    separator: string;
+    messageId: number;
+    scheduleDate: moment.Moment;
+
+    constructor(data?: ICreateSendProcessInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.name = _data["name"];
+            this.separator = _data["separator"];
+            this.messageId = _data["messageId"];
+            this.scheduleDate = _data["scheduleDate"] ? moment(_data["scheduleDate"].toString()) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): CreateSendProcessInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateSendProcessInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["separator"] = this.separator;
+        data["messageId"] = this.messageId;
+        data["scheduleDate"] = this.scheduleDate ? this.scheduleDate.toISOString() : <any>undefined;
+        return data; 
+    }
+
+    clone(): CreateSendProcessInput {
+        const json = this.toJSON();
+        let result = new CreateSendProcessInput();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface ICreateSendProcessInput {
+    name: string;
+    separator: string;
+    messageId: number;
+    scheduleDate: moment.Moment;
+}
+
+export class UpdateSendProcessInput implements IUpdateSendProcessInput {
+    id: number;
+    name: string;
+    separator: string;
+    messageId: number;
+    scheduleDate: moment.Moment;
+
+    constructor(data?: IUpdateSendProcessInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+            this.separator = _data["separator"];
+            this.messageId = _data["messageId"];
+            this.scheduleDate = _data["scheduleDate"] ? moment(_data["scheduleDate"].toString()) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): UpdateSendProcessInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new UpdateSendProcessInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["separator"] = this.separator;
+        data["messageId"] = this.messageId;
+        data["scheduleDate"] = this.scheduleDate ? this.scheduleDate.toISOString() : <any>undefined;
+        return data; 
+    }
+
+    clone(): UpdateSendProcessInput {
+        const json = this.toJSON();
+        let result = new UpdateSendProcessInput();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IUpdateSendProcessInput {
+    id: number;
+    name: string;
+    separator: string;
+    messageId: number;
+    scheduleDate: moment.Moment;
 }
 
 export class ApplicationInfoDto implements IApplicationInfoDto {

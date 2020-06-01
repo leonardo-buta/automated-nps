@@ -23,6 +23,12 @@
     <Compile Remove="Migrations\20200509223957_Campaings_table.Designer.cs" />
     <Compile Remove="Migrations\20200509224039_Campaings_table.cs" />
     <Compile Remove="Migrations\20200509224039_Campaings_table.Designer.cs" />
+    <Compile Remove="Migrations\20200531040352_Remove_Campaign.cs" />
+    <Compile Remove="Migrations\20200531040352_Remove_Campaign.Designer.cs" />
+    <Compile Remove="Migrations\20200531041804_Status_SendProcess.cs" />
+    <Compile Remove="Migrations\20200531041804_Status_SendProcess.Designer.cs" />
+    <Compile Remove="Migrations\20200531051136_Status_SendProcess_Seed.cs" />
+    <Compile Remove="Migrations\20200531051136_Status_SendProcess_Seed.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.3" />

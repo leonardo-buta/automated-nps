@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NPS.EntityFrameworkCore;
 
 namespace NPS.Migrations
 {
     [DbContext(typeof(NPSDbContext))]
-    partial class NPSDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200531041936_Status_SendProcess")]
+    partial class Status_SendProcess
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -920,7 +922,7 @@ namespace NPS.Migrations
 
             modelBuilder.Entity("Abp.Notifications.NotificationInfo", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
@@ -977,7 +979,7 @@ namespace NPS.Migrations
 
             modelBuilder.Entity("Abp.Notifications.NotificationSubscriptionInfo", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
@@ -1020,7 +1022,7 @@ namespace NPS.Migrations
 
             modelBuilder.Entity("Abp.Notifications.TenantNotificationInfo", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
@@ -1070,7 +1072,7 @@ namespace NPS.Migrations
 
             modelBuilder.Entity("Abp.Notifications.UserNotificationInfo", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
@@ -1083,8 +1085,7 @@ namespace NPS.Migrations
                     b.Property<int?>("TenantId")
                         .HasColumnType("int");
 
-                    b.Property<string>("TenantNotificationId")
-                        .IsRequired()
+                    b.Property<Guid>("TenantNotificationId")
                         .HasColumnType("char(36)");
 
                     b.Property<long>("UserId")
@@ -1184,7 +1185,7 @@ namespace NPS.Migrations
 
             modelBuilder.Entity("Abp.Webhooks.WebhookEvent", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
@@ -1214,7 +1215,7 @@ namespace NPS.Migrations
 
             modelBuilder.Entity("Abp.Webhooks.WebhookSendAttempt", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
@@ -1233,12 +1234,10 @@ namespace NPS.Migrations
                     b.Property<int?>("TenantId")
                         .HasColumnType("int");
 
-                    b.Property<string>("WebhookEventId")
-                        .IsRequired()
+                    b.Property<Guid>("WebhookEventId")
                         .HasColumnType("char(36)");
 
-                    b.Property<string>("WebhookSubscriptionId")
-                        .IsRequired()
+                    b.Property<Guid>("WebhookSubscriptionId")
                         .HasColumnType("char(36)");
 
                     b.HasKey("Id");
@@ -1250,7 +1249,7 @@ namespace NPS.Migrations
 
             modelBuilder.Entity("Abp.Webhooks.WebhookSubscriptionInfo", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
@@ -1721,7 +1720,7 @@ namespace NPS.Migrations
                         .HasColumnType("varchar(1) CHARACTER SET utf8mb4")
                         .HasMaxLength(1);
 
-                    b.Property<int?>("StatusSendProcessId")
+                    b.Property<int>("StatusSendProcess")
                         .HasColumnType("int");
 
                     b.Property<bool>("UploadedMailing")
@@ -1733,47 +1732,7 @@ namespace NPS.Migrations
 
                     b.HasIndex("MessageId");
 
-                    b.HasIndex("StatusSendProcessId");
-
                     b.ToTable("send_processes");
-                });
-
-            modelBuilder.Entity("NPS.SendProcesses.StatusSendProcess", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
-                        .HasMaxLength(50);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("status_send_process");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Pendente"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Aguardando agendamento"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Enviando"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Finalizado"
-                        });
                 });
 
             modelBuilder.Entity("Abp.Application.Features.EditionFeatureSetting", b =>
@@ -2014,10 +1973,6 @@ namespace NPS.Migrations
                     b.HasOne("NPS.Messages.Message", "Message")
                         .WithMany()
                         .HasForeignKey("MessageId");
-
-                    b.HasOne("NPS.SendProcesses.StatusSendProcess", "StatusSendProcess")
-                        .WithMany()
-                        .HasForeignKey("StatusSendProcessId");
                 });
 
             modelBuilder.Entity("Abp.Application.Features.EditionFeatureSetting", b =>

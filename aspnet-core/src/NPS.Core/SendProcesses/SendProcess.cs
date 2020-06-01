@@ -1,6 +1,6 @@
 ﻿using Abp.Domain.Entities;
-using NPS.Campaigns;
 using NPS.Messages;
+using NPS.StatusSendProcesses;
 using System;
 
 namespace NPS.SendProcesses
@@ -11,11 +11,11 @@ namespace NPS.SendProcesses
 
         public string Separator { get; set; }
 
-        public Campaign Campaign { get; set; }
-
         public Message Message { get; set; }
 
-        public DateTime SendDate { get; set; }
+        public DateTime ScheduleDate { get; set; }
+
+        public StatusSendProcess StatusSendProcess { get; set; }
 
         public bool UploadedMailing { get; set; }
     }

@@ -8,6 +8,7 @@ using NPS.MessageTypes;
 using NPS.Campaigns;
 using NPS.SendProcesses;
 using NPS.Mailings;
+using NPS.StatusSendProcesses;
 
 namespace NPS.EntityFrameworkCore
 {
@@ -17,6 +18,7 @@ namespace NPS.EntityFrameworkCore
         public DbSet<Message> Messages { get; set; }
         public DbSet<MessageType> MessageTypes { get; set; }
         public DbSet<SendProcess> SendProcesses { get; set; }
+        public DbSet<StatusSendProcess> StatusSendProcesses { get; set; }
         public DbSet<Mailing> Mailings { get; set; }
 
         public NPSDbContext(DbContextOptions<NPSDbContext> options)
@@ -53,9 +55,15 @@ namespace NPS.EntityFrameworkCore
             modelBuilder.Entity<Mailing>().Property(p => p.Empty).IsRequired().HasDefaultValue(0);
             modelBuilder.Entity<Mailing>().Property(p => p.IncorretFormat).IsRequired().HasDefaultValue(0);
 
+            modelBuilder.Entity<StatusSendProcess>().ToTable("status_send_process");
+            modelBuilder.Entity<StatusSendProcess>().Property(p => p.Name).IsRequired().HasMaxLength(50);
+
             // Seed
             modelBuilder.Entity<MessageType>().HasData(new MessageType { Id = 1, Type = "E-Mail" }, new MessageType { Id = 2, Type = "SMS" });
-
+            modelBuilder.Entity<StatusSendProcess>().HasData(new StatusSendProcess { Id = 1, Name = "Pendente" },
+                                                             new StatusSendProcess { Id = 2, Name = "Aguardando agendamento" },
+                                                             new StatusSendProcess { Id = 3, Name = "Enviando" },
+                                                             new StatusSendProcess { Id = 4, Name = "Finalizado" });
             base.OnModelCreating(modelBuilder);
         }
     }
