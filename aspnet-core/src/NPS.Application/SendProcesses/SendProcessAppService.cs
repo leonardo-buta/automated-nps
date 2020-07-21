@@ -48,5 +48,11 @@ namespace NPS.SendProcesses
 
             return MapToEntityDto(process);
         }
+
+        public async Task ChangeStatusToAwaitingSchedule(int id)
+        {
+            var process = await Repository.GetAsync(id);
+            process.StatusSendProcess = await _statusSendProcessRepository.GetAsync(2);
+        }
     }
 }

@@ -9,6 +9,7 @@ using NPS.Campaigns;
 using NPS.SendProcesses;
 using NPS.Mailings;
 using NPS.StatusSendProcesses;
+using NPS.SendProcessReports;
 
 namespace NPS.EntityFrameworkCore
 {
@@ -20,6 +21,7 @@ namespace NPS.EntityFrameworkCore
         public DbSet<SendProcess> SendProcesses { get; set; }
         public DbSet<StatusSendProcess> StatusSendProcesses { get; set; }
         public DbSet<Mailing> Mailings { get; set; }
+        public DbSet<SendProcessReport> SendProcessReport { get; set; }
 
         public NPSDbContext(DbContextOptions<NPSDbContext> options)
             : base(options)
@@ -57,6 +59,11 @@ namespace NPS.EntityFrameworkCore
 
             modelBuilder.Entity<StatusSendProcess>().ToTable("status_send_process");
             modelBuilder.Entity<StatusSendProcess>().Property(p => p.Name).IsRequired().HasMaxLength(50);
+
+            modelBuilder.Entity<SendProcessReport>().ToTable("send_process_reports");
+            modelBuilder.Entity<SendProcessReport>().Property(p => p.Guid).IsRequired();
+            modelBuilder.Entity<SendProcessReport>().Property(p => p.Text).IsRequired();
+            modelBuilder.Entity<SendProcessReport>().Property(p => p.Recipient).IsRequired();
 
             // Seed
             modelBuilder.Entity<MessageType>().HasData(new MessageType { Id = 1, Type = "E-Mail" }, new MessageType { Id = 2, Type = "SMS" });

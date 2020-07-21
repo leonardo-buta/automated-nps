@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NPS.EntityFrameworkCore;
 
 namespace NPS.Migrations
 {
     [DbContext(typeof(NPSDbContext))]
-    partial class NPSDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200607194918_SendProcessReport_Table")]
+    partial class SendProcessReport_Table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1705,18 +1707,12 @@ namespace NPS.Migrations
                     b.Property<Guid>("Guid")
                         .HasColumnType("char(36)");
 
-                    b.Property<int?>("Rating")
+                    b.Property<int>("Rating")
                         .HasColumnType("int");
 
                     b.Property<string>("Recipient")
                         .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<DateTime?>("ResponseDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime>("SendDate")
-                        .HasColumnType("datetime(6)");
 
                     b.Property<int?>("SendProcessId")
                         .HasColumnType("int");

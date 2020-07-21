@@ -7,6 +7,6 @@ namespace NPS.Mailings
 {
     public interface IMailingAppService : IAsyncCrudAppService<MailingDto>
     {
-        Task UploadMailing(int sendProcessId, IFormFile formFile);
+        Task UploadMailing(int sendProcessId, string separator, IFormFile formFile);
     }
 }

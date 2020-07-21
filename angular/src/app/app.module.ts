@@ -46,6 +46,7 @@ import { EditCampaignDialogComponent } from './campaigns/edit-campaign/edit-camp
 import { SendProcessesComponent } from './send-processes/send-processes.component';
 import { CreateSendProcessDialogComponent } from './send-processes/create-send-process/create-send-process-dialog.component';
 import { EditSendProcessDialogComponent } from './send-processes/edit-send-process/edit-send-process-dialog.component';
+import { SendProcessReportsComponent } from './send-process-reports/send-process-reports.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { EditSendProcessDialogComponent } from './send-processes/edit-send-proce
     EditCampaignDialogComponent,
     SendProcessesComponent,
     CreateSendProcessDialogComponent,
-    EditSendProcessDialogComponent
+    EditSendProcessDialogComponent,
+    SendProcessReportsComponent
   ],
   imports: [
     CommonModule,
