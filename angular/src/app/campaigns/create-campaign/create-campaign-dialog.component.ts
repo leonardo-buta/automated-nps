@@ -1,5 +1,5 @@
 import { Component, Injector, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef, MatDatepickerInputEvent } from '@angular/material';
 import { finalize } from 'rxjs/operators';
 import { AppComponentBase } from '@shared/app-component-base';
 import {
@@ -7,6 +7,7 @@ import {
   CampaignDto,
   CampaignServiceProxy
 } from '@shared/service-proxies/service-proxies';
+import * as moment from 'moment';
 
 @Component({
   templateUrl: 'create-campaign-dialog.component.html',
@@ -20,6 +21,7 @@ export class CreateCampaignDialogComponent extends AppComponentBase
   grantedPermissionNames: string[] = [];
   checkedPermissionsMap: { [key: string]: boolean } = {};
   defaultPermissionCheckedStatus = true;
+  inputStartDate: Date = new Date();
 
   constructor(
     injector: Injector,
@@ -30,7 +32,17 @@ export class CreateCampaignDialogComponent extends AppComponentBase
   }
 
   ngOnInit(): void {
-    
+    this.campaign.startDate = moment(this.inputStartDate).startOf('day').utc(false);
+  }
+
+  onChangeDate(event: MatDatepickerInputEvent<Date>) {
+    let momentDate = moment(event.value).startOf('day').utc(false);
+
+    if (event.targetElement.id === 'startDate') {
+      this.campaign.startDate = momentDate;
+    } else {
+      this.campaign.endDate = momentDate;
+    }
   }
 
   save(): void {
