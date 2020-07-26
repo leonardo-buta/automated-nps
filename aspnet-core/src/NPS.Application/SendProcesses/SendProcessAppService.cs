@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using NPS.Messages;
 using NPS.SendProcesses.Dto;
 using NPS.StatusSendProcesses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
@@ -27,6 +28,7 @@ namespace NPS.SendProcesses
         public override async Task<PagedResultDto<SendProcessDto>> GetAllAsync(GetAllSendProcessInput input)
         {
             var query = await Repository.GetAllIncluding(x => x.StatusSendProcess)
+                                        .OrderByDescending(x => x.Id)
                                         .Skip(input.SkipCount)
                                         .Take(input.MaxResultCount)
                                         .AsQueryable()
@@ -40,6 +42,7 @@ namespace NPS.SendProcesses
         public override async Task<SendProcessDto> CreateAsync(CreateSendProcessInput input)
         {
             var process = ObjectMapper.Map<SendProcess>(input);
+            process.ScheduleDate = TimeZoneInfo.ConvertTimeFromUtc(input.ScheduleDate, TimeZoneInfo.Local);
 
             process.Message = await _messageRepository.GetAsync(input.MessageId);
             process.StatusSendProcess= await _statusSendProcessRepository.GetAsync(1);

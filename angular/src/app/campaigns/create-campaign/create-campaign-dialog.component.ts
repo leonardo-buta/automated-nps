@@ -17,10 +17,6 @@ export class CreateCampaignDialogComponent extends AppComponentBase
   implements OnInit {
   saving = false;
   campaign: CampaignDto = new CampaignDto();
-  permissions: PermissionDto[] = [];
-  grantedPermissionNames: string[] = [];
-  checkedPermissionsMap: { [key: string]: boolean } = {};
-  defaultPermissionCheckedStatus = true;
   inputStartDate: Date = new Date();
 
   constructor(

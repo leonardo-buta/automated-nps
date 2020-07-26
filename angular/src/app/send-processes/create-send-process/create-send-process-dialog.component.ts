@@ -1,5 +1,5 @@
 import { Component, Injector, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef, MatDatepickerInputEvent } from '@angular/material';
 import { finalize } from 'rxjs/operators';
 import { AppComponentBase } from '@shared/app-component-base';
 import * as moment from 'moment';
@@ -20,6 +20,7 @@ export class CreateSendProcessDialogComponent extends AppComponentBase
   saving = false;
   sendProcess: CreateSendProcessInput = new CreateSendProcessInput();
   messages: MessageDto[] = [];
+  inputStartDate: Date = new Date();
 
   constructor(
     injector: Injector,
@@ -37,9 +38,12 @@ export class CreateSendProcessDialogComponent extends AppComponentBase
     });
   }
 
+  onChangeDate(event: MatDatepickerInputEvent<Date>) {
+    this.sendProcess.scheduleDate = moment(event.value);
+  }
+
   save(): void {
     this.saving = true;
-    this.sendProcess.scheduleDate = moment();
 
     const sendProcess = new CreateSendProcessInput();
     sendProcess.init(this.sendProcess);
