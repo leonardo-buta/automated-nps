@@ -48,6 +48,7 @@ namespace NPS.SendProcesses
             process.StatusSendProcess= await _statusSendProcessRepository.GetAsync(1);
 
             await Repository.InsertAsync(process);
+            await CurrentUnitOfWork.SaveChangesAsync();
 
             return MapToEntityDto(process);
         }

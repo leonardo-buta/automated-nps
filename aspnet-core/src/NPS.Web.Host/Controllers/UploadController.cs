@@ -4,7 +4,6 @@ using NPS.Mailings;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using System;
-using System.Net;
 
 namespace NPS.Web.Host.Controllers
 {
@@ -18,20 +17,20 @@ namespace NPS.Web.Host.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UploadMailing(int sendProcessId, string separator, IFormFile formFile)
+        public async Task<JsonResult> Mailing(int sendProcessId, string separator, IFormFile formFile)
         {
             try
             {
-                if (formFile.Length > 0)
+                if (sendProcessId > 0 && formFile.Length > 0)
                 {
                     await _mailingAppService.UploadMailing(sendProcessId, separator, formFile);
                 }
 
-                return Ok();
+                return Json(string.Empty);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return StatusCode(500);
+                return Json(ex.Message);
             }
         }
     }
