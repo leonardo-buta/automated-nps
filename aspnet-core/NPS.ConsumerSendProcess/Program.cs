@@ -1,11 +1,11 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using NPS.ConsumerSendProcess.Models;
+using NPS.ServicesCommon;
+using NPS.ServicesRepository;
+using NPS.ServicesRepository.Models;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;
-using System.IO;
 using System.Text;
 using System.Threading;
 
@@ -14,29 +14,11 @@ namespace NPS.ConsumerSendProcess
     // https://github.com/renatogroffe/RabbitMQ_HealthChecks-DotNetCore2.2
     class Program
     {
-        private static IConfiguration _configuration;
         private static readonly AutoResetEvent _waitHandle = new AutoResetEvent(false);
 
         static void Main(string[] args)
         {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile($"appsettings.json");
-
-            _configuration = builder.Build();
-
-            var rabbitMQConfiguration = new RabbitMQConfiguration();
-            new ConfigureFromConfigurationOptions<RabbitMQConfiguration>(_configuration.GetSection("RabbitMQConfiguration")).Configure(rabbitMQConfiguration);
-
-            var factory = new ConnectionFactory
-            {
-                HostName = rabbitMQConfiguration.HostName,
-                Port = rabbitMQConfiguration.Port,
-                UserName = rabbitMQConfiguration.UserName,
-                Password = rabbitMQConfiguration.Password
-            };
-
-            using (var connection = factory.CreateConnection())
+            using (var connection = RabbitMQConnection.GetConnectionFactory().CreateConnection())
             using (var channel = connection.CreateModel())
             {
                 channel.QueueDeclare(queue: "TestesASPNETCore",
@@ -74,7 +56,7 @@ namespace NPS.ConsumerSendProcess
 
             // lógica de enviar email
 
-            new Repository(_configuration).InsertSendProcessReport(message);
+            new Repository().InsertSendProcessReport(message);
         }
     }
 }

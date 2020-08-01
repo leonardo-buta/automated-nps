@@ -1,4 +1,4 @@
-﻿namespace NPS.ConsumerSendProcess
+﻿namespace NPS.ServicesCommon
 {
     public class RabbitMQConfiguration
     {

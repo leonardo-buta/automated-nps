@@ -14,12 +14,14 @@ namespace NPS.Mailings
     {
         private readonly IWebHostEnvironment _env;
         private readonly IRepository<SendProcess> _sendProcessrepository;
+        private readonly IRepository<StatusSendProcess> _statusSendProcessRepository;
 
-        public MailingAppService(IRepository<Mailing> repository, IRepository<SendProcess> sendProcessrepository, IWebHostEnvironment env)
+        public MailingAppService(IRepository<Mailing> repository, IRepository<SendProcess> sendProcessrepository, IRepository<StatusSendProcess> statusSendProcessRepository, IWebHostEnvironment env)
             : base(repository)
         {
             _env = env;
             _sendProcessrepository = sendProcessrepository;
+            _statusSendProcessRepository = statusSendProcessRepository;
         }
 
         public async Task UploadMailing(int sendProcessId, string separator, IFormFile formFile)
@@ -63,6 +65,8 @@ namespace NPS.Mailings
                     });
                 }
             }
+
+            sendProcess.StatusSendProcess = await _statusSendProcessRepository.GetAsync(2);
         }
     }
 }

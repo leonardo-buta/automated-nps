@@ -32,6 +32,7 @@ namespace NPS.EntityFrameworkCore
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Message>().ToTable("messages");
+            modelBuilder.Entity<Message>().Property(p => p.Subject).IsRequired().HasMaxLength(255);
             modelBuilder.Entity<Message>().Property(p => p.Name).IsRequired().HasMaxLength(255);
             modelBuilder.Entity<Message>().Property(p => p.Text).IsRequired();
 
