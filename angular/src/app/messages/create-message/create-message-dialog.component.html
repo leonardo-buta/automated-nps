@@ -5,13 +5,19 @@
       <mat-tab label="Cadastro">
         <br />
         <div class="row-fluid">
-          <div class="col-md-4">
+          <div class="col-md-6">
             <mat-form-field>
               <input matInput name="Name" placeholder="Nome" [(ngModel)]="message.name" required minlength="2"
                 maxlength="32" />
             </mat-form-field>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-6">
+            <mat-form-field>
+              <input matInput name="Subject" placeholder="Assunto" [(ngModel)]="message.subject" required minlength="2"
+                maxlength="32" />
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
             <mat-form-field>
               <mat-select name="Campaign" placeholder="Campanha" [(ngModel)]="message.campaignId" required>
                 <mat-option *ngFor="let campaign of campaigns" [value]="campaign.id">
@@ -20,7 +26,7 @@
               </mat-select>
             </mat-form-field>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-6">
             <mat-form-field>
               <mat-select name="MessageType" placeholder="Tipo de mensagem" [(ngModel)]="message.messageTypeId"
                 required>

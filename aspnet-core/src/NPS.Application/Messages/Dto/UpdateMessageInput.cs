@@ -15,6 +15,10 @@ namespace NPS.Messages.Dto
 
         [Required]
         [StringLength(255)]
+        public string Subject { get; set; }
+
+        [Required]
+        [StringLength(255)]
         public string Text { get; set; }
 
         [Required]

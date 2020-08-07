@@ -981,16 +981,19 @@ export class MessageServiceProxy {
 
     /**
      * @param name (optional) 
+     * @param subject (optional) 
      * @param text (optional) 
      * @param sorting (optional) 
      * @param skipCount (optional) 
      * @param maxResultCount (optional) 
      * @return Success
      */
-    getAll(name: string | null | undefined, text: string | null | undefined, sorting: string | null | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<MessageDtoPagedResultDto> {
+    getAll(name: string | null | undefined, subject: string | null | undefined, text: string | null | undefined, sorting: string | null | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<MessageDtoPagedResultDto> {
         let url_ = this.baseUrl + "/api/services/app/Message/GetAll?";
         if (name !== undefined && name !== null)
             url_ += "Name=" + encodeURIComponent("" + name) + "&";
+        if (subject !== undefined && subject !== null)
+            url_ += "Subject=" + encodeURIComponent("" + subject) + "&";
         if (text !== undefined && text !== null)
             url_ += "Text=" + encodeURIComponent("" + text) + "&";
         if (sorting !== undefined && sorting !== null)
@@ -3804,6 +3807,7 @@ export interface IMailingDtoPagedResultDto {
 
 export class CreateMessageInput implements ICreateMessageInput {
     name: string;
+    subject: string;
     text: string;
     messageTypeId: number;
     campaignId: number;
@@ -3820,6 +3824,7 @@ export class CreateMessageInput implements ICreateMessageInput {
     init(_data?: any) {
         if (_data) {
             this.name = _data["name"];
+            this.subject = _data["subject"];
             this.text = _data["text"];
             this.messageTypeId = _data["messageTypeId"];
             this.campaignId = _data["campaignId"];
@@ -3836,6 +3841,7 @@ export class CreateMessageInput implements ICreateMessageInput {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["name"] = this.name;
+        data["subject"] = this.subject;
         data["text"] = this.text;
         data["messageTypeId"] = this.messageTypeId;
         data["campaignId"] = this.campaignId;
@@ -3852,6 +3858,7 @@ export class CreateMessageInput implements ICreateMessageInput {
 
 export interface ICreateMessageInput {
     name: string;
+    subject: string;
     text: string;
     messageTypeId: number;
     campaignId: number;
@@ -3859,6 +3866,7 @@ export interface ICreateMessageInput {
 
 export class MessageDto implements IMessageDto {
     name: string | undefined;
+    subject: string | undefined;
     text: string | undefined;
     messageType: string | undefined;
     campaign: string | undefined;
@@ -3877,6 +3885,7 @@ export class MessageDto implements IMessageDto {
     init(_data?: any) {
         if (_data) {
             this.name = _data["name"];
+            this.subject = _data["subject"];
             this.text = _data["text"];
             this.messageType = _data["messageType"];
             this.campaign = _data["campaign"];
@@ -3895,6 +3904,7 @@ export class MessageDto implements IMessageDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["name"] = this.name;
+        data["subject"] = this.subject;
         data["text"] = this.text;
         data["messageType"] = this.messageType;
         data["campaign"] = this.campaign;
@@ -3913,6 +3923,7 @@ export class MessageDto implements IMessageDto {
 
 export interface IMessageDto {
     name: string | undefined;
+    subject: string | undefined;
     text: string | undefined;
     messageType: string | undefined;
     campaign: string | undefined;
@@ -3923,6 +3934,7 @@ export interface IMessageDto {
 export class UpdateMessageInput implements IUpdateMessageInput {
     id: number;
     name: string;
+    subject: string;
     text: string;
     messageTypeId: number;
     campaignId: number;
@@ -3940,6 +3952,7 @@ export class UpdateMessageInput implements IUpdateMessageInput {
         if (_data) {
             this.id = _data["id"];
             this.name = _data["name"];
+            this.subject = _data["subject"];
             this.text = _data["text"];
             this.messageTypeId = _data["messageTypeId"];
             this.campaignId = _data["campaignId"];
@@ -3957,6 +3970,7 @@ export class UpdateMessageInput implements IUpdateMessageInput {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["name"] = this.name;
+        data["subject"] = this.subject;
         data["text"] = this.text;
         data["messageTypeId"] = this.messageTypeId;
         data["campaignId"] = this.campaignId;
@@ -3974,6 +3988,7 @@ export class UpdateMessageInput implements IUpdateMessageInput {
 export interface IUpdateMessageInput {
     id: number;
     name: string;
+    subject: string;
     text: string;
     messageTypeId: number;
     campaignId: number;

@@ -34,7 +34,7 @@ export class CreateSendProcessDialogComponent extends AppComponentBase
   }
 
   ngOnInit(): void {
-    this._messageService.getAll(undefined, undefined, undefined, undefined, undefined)
+    this._messageService.getAll(undefined, undefined, undefined, undefined, undefined, undefined)
       .subscribe((result: MessageDtoPagedResultDto) => {
         this.messages = result.items;
       });

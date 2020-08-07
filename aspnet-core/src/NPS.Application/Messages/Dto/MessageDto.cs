@@ -9,6 +9,8 @@ namespace NPS.Messages.Dto
     {
         public string Name { get; set; }
 
+        public string Subject { get; set; }
+
         public string Text { get; set; }
 
         public string MessageType { get; set; }

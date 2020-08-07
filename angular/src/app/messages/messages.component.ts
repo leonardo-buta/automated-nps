@@ -45,7 +45,7 @@ export class MessagesComponent extends PagedListingComponentBase<MessageDto> {
     request.keyword = this.keyword;
 
     this._messagesService
-      .getAll('', '', request.keyword, request.skipCount, request.maxResultCount)
+      .getAll('', '', '', request.keyword, request.skipCount, request.maxResultCount)
       .pipe(
         finalize(() => {
           finishedCallback();
