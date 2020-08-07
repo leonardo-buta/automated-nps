@@ -30,18 +30,18 @@
             </mat-form-field>
           </div>
           <div class="col-md-4">
-            <h3>Upload de Contatos</h3>
-            <div class="col-md-12">
-              <input type="file" (change)="handleFileInput($event.target.files)">
-            </div>
-          </div>
-          <div class="col-md-4">
             <mat-form-field>
               <mat-select name="Separator" placeholder="Delimitador" [(ngModel)]="sendProcess.separator" required>
                 <mat-option value=";">; (Ponto e Vírgula)</mat-option>
                 <mat-option value="|">| (Pipe)</mat-option>
               </mat-select>
             </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <h4>Upload de Contatos</h4>
+            <div class="col-md-12">
+              <input type="file" (change)="handleFileInput($event.target.files)">
+            </div>
           </div>
         </div>
       </mat-tab>

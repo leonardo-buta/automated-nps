@@ -50,7 +50,7 @@ namespace NPS.ServicesRepository
             using (var con = new MySqlConnection(_configuration.GetConnectionString("Default")))
             {
                 processList = await con.QueryAsync<SendProcessModel>(@"SELECT 
-                                                                               p.Id, p.ScheduleDate, m.Name, m.Text
+                                                                               p.Id, p.ScheduleDate, m.Subject, m.Text
                                                                            FROM
                                                                                send_processes p
                                                                                    INNER JOIN
