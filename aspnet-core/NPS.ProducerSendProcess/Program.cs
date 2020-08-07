@@ -23,17 +23,18 @@ namespace NPS.ProducerSendProcess
                 using (var connection = RabbitMQConnection.GetConnectionFactory().CreateConnection())
                 using (var channel = connection.CreateModel())
                 {
-                    channel.QueueDeclare(queue: "TestesASPNETCore",
+                    channel.QueueDeclare(queue: "NPS.SendProcess",
                                          durable: false,
                                          exclusive: false,
                                          autoDelete: false,
                                          arguments: null);
 
-                    foreach (var item in mailings)
+                    foreach (var mailing in mailings)
                     {
                         var message = JsonConvert.SerializeObject(new SendProcessModel
                         {
-                            Recipient = item,
+                            Id = process.Id,
+                            Recipient = mailing,
                             Subject = process.Subject,
                             Text = process.Text
                         });
@@ -41,7 +42,7 @@ namespace NPS.ProducerSendProcess
                         var body = Encoding.UTF8.GetBytes(message);
 
                         channel.BasicPublish(exchange: "",
-                                             routingKey: "TestesASPNETCore",
+                                             routingKey: "NPS.SendProcess",
                                              basicProperties: null,
                                              body: body);
                     }

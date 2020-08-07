@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using NPS.ServicesCommon;
 using NPS.ServicesRepository;
 using NPS.ServicesRepository.Models;
@@ -21,15 +20,20 @@ namespace NPS.ConsumerSendProcess
             using (var connection = RabbitMQConnection.GetConnectionFactory().CreateConnection())
             using (var channel = connection.CreateModel())
             {
-                channel.QueueDeclare(queue: "TestesASPNETCore",
+                channel.QueueDeclare(queue: "NPS.SendProcess",
                                      durable: false,
                                      exclusive: false,
                                      autoDelete: false,
                                      arguments: null);
 
                 var consumer = new EventingBasicConsumer(channel);
-                consumer.Received += Consumer_Received;
-                channel.BasicConsume(queue: "TestesASPNETCore", autoAck: true, consumer: consumer);
+                consumer.Received += (model, e) =>
+                {
+                    Consumer_Received(e);
+                    channel.BasicAck(e.DeliveryTag, false);
+                };
+
+                channel.BasicConsume(queue: "NPS.SendProcess", autoAck: false, consumer: consumer);
 
                 Console.WriteLine("Aguardando mensagens para processamento");
 
@@ -49,7 +53,7 @@ namespace NPS.ConsumerSendProcess
             }
         }
 
-        private static void Consumer_Received(object sender, BasicDeliverEventArgs e)
+        private static void Consumer_Received(BasicDeliverEventArgs e)
         {
             var body = e.Body.Span;
             var message = JsonConvert.DeserializeObject<SendProcessModel>(Encoding.UTF8.GetString(body));

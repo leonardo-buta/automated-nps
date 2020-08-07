@@ -1,8 +1,6 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 using MySql.Data.MySqlClient;
-using NPS.ServicesCommon;
 using NPS.ServicesRepository.Models;
 using System;
 using System.Collections.Generic;
@@ -15,7 +13,6 @@ namespace NPS.ServicesRepository
     public class Repository
     {
         private static IConfiguration _configuration;
-        private static RabbitMQConfiguration _rabbitMQConfiguration;
 
         public Repository()
         {
@@ -24,9 +21,6 @@ namespace NPS.ServicesRepository
                 .AddJsonFile($"appsettings.json");
 
             _configuration = builder.Build();
-
-            _rabbitMQConfiguration = new RabbitMQConfiguration();
-            new ConfigureFromConfigurationOptions<RabbitMQConfiguration>(_configuration.GetSection("RabbitMQConfiguration")).Configure(_rabbitMQConfiguration);
         }
 
         public void InsertSendProcessReport(SendProcessModel sendProcessModel)
