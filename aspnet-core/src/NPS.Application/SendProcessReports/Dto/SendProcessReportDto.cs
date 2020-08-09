@@ -11,5 +11,9 @@ namespace NPS.SendProcessesReports.Dto
         public string Recipient { get; set; }
 
         public int? Rating { get; set; }
+
+        public DateTime SendDate { get; set; }
+
+        public DateTime? ResponseDate { get; set; }
     }
 }

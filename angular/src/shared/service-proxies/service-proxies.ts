@@ -4866,6 +4866,8 @@ export interface IUpdateSendProcessInput {
 export class SendProcessReportDto implements ISendProcessReportDto {
     recipient: string | undefined;
     rating: number | undefined;
+    sendDate: moment.Moment;
+    responseDate: moment.Moment | undefined;
     id: number;
 
     constructor(data?: ISendProcessReportDto) {
@@ -4881,6 +4883,8 @@ export class SendProcessReportDto implements ISendProcessReportDto {
         if (_data) {
             this.recipient = _data["recipient"];
             this.rating = _data["rating"];
+            this.sendDate = _data["sendDate"] ? moment(_data["sendDate"].toString()) : <any>undefined;
+            this.responseDate = _data["responseDate"] ? moment(_data["responseDate"].toString()) : <any>undefined;
             this.id = _data["id"];
         }
     }
@@ -4896,6 +4900,8 @@ export class SendProcessReportDto implements ISendProcessReportDto {
         data = typeof data === 'object' ? data : {};
         data["recipient"] = this.recipient;
         data["rating"] = this.rating;
+        data["sendDate"] = this.sendDate ? this.sendDate.toISOString() : <any>undefined;
+        data["responseDate"] = this.responseDate ? this.responseDate.toISOString() : <any>undefined;
         data["id"] = this.id;
         return data; 
     }
@@ -4911,6 +4917,8 @@ export class SendProcessReportDto implements ISendProcessReportDto {
 export interface ISendProcessReportDto {
     recipient: string | undefined;
     rating: number | undefined;
+    sendDate: moment.Moment;
+    responseDate: moment.Moment | undefined;
     id: number;
 }
 
