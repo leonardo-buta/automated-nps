@@ -1,6 +1,9 @@
 ﻿using Abp.Application.Services;
 using Abp.Domain.Repositories;
 using NPS.SendProcessesReports.Dto;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace NPS.SendProcessReports
 {
@@ -10,6 +13,18 @@ namespace NPS.SendProcessReports
             : base(repository)
         {
 
+        }
+
+        public async Task AnswerNPS(Guid guid, int rating)
+        {
+            var report = Repository.GetAll().Where(x => x.Guid == guid).FirstOrDefault();
+
+            if (report != null)
+            {
+                report.Rating = rating;
+                report.ResponseDate = DateTime.Now;
+                await Repository.UpdateAsync(report);
+            }
         }
     }
 }
