@@ -1,8 +1,12 @@
-﻿namespace NPS.ServicesRepository.Models
+﻿using System;
+
+namespace NPS.ServicesRepository.Models
 {
     public class SendProcessModel
     {
         public int Id { get; set; }
+
+        public Guid Guid { get; set; }
 
         public string Subject { get; set; }
 

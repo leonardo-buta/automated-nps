@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NPS.EntityFrameworkCore;
 
 namespace NPS.Migrations
 {
     [DbContext(typeof(NPSDbContext))]
-    partial class NPSDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200809201725_Template_table")]
+    partial class Template_table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1533,6 +1535,10 @@ namespace NPS.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Body")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("TdRating")
                         .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 

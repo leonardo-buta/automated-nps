@@ -16,8 +16,8 @@ namespace NPS.Web.Host.Controllers
             _sendProcessReportAppService = sendProcessReportAppService;
         }
 
-        [HttpPost]
-        public async Task<JsonResult> SendResponse(Guid guid, string rating)
+        [HttpGet]
+        public async Task<IActionResult> SendResponse(Guid guid, string rating)
         {
             try
             {
@@ -28,7 +28,7 @@ namespace NPS.Web.Host.Controllers
 
                 await _sendProcessReportAppService.AnswerNPS(guid, internalRating);
 
-                return Json(string.Empty);
+                return Redirect("/pages/thank-you.html");
             }
             catch (Exception ex)
             {

@@ -28,7 +28,7 @@ namespace NPS.ServicesRepository
             using (var con = new MySqlConnection(_configuration.GetConnectionString("Default")))
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("guid", Guid.NewGuid().ToString());
+                parameters.Add("guid", sendProcessModel.Guid);
                 parameters.Add("text", sendProcessModel.Text);
                 parameters.Add("recipient", sendProcessModel.Recipient);
                 parameters.Add("sendProcessId", sendProcessModel.Id);
@@ -71,6 +71,27 @@ namespace NPS.ServicesRepository
             }
 
             return mailings;
+        }
+
+        public async Task<string> GetEmailTemplateById(int id)
+        {
+            string email = string.Empty;
+            using (var con = new MySqlConnection(_configuration.GetConnectionString("Default")))
+            {
+                email = await con.QueryFirstOrDefaultAsync<string>(@"SELECT 
+                                                                    t.Body
+                                                                FROM
+                                                                    templates t
+                                                                WHERE
+                                                                    t.Id = @id", new { id });
+            }
+
+            return email;
+        }
+
+        public string GetAPIUrl()
+        {
+            return _configuration.GetValue<string>("APIUrl");
         }
     }
 }

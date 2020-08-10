@@ -17,7 +17,7 @@ namespace NPS.SendProcessReports
 
         public async Task AnswerNPS(Guid guid, int rating)
         {
-            var report = Repository.GetAll().Where(x => x.Guid == guid).FirstOrDefault();
+            var report = Repository.GetAll().Where(x => x.Guid == guid && !x.Rating.HasValue).FirstOrDefault();
 
             if (report != null)
             {
