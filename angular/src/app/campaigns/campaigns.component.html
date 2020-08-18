@@ -40,6 +40,7 @@
                           <th>Data de Início</th>
                           <th>Data Fim</th>
                           <th>Ativo</th>
+                          <th>{{ "Actions" | localize }}</th>
                       </tr>
                   </thead>
                   <tbody>
@@ -53,8 +54,15 @@
                     })">
                           <td>{{ campaign.name }}</td>
                           <td>{{ campaign.startDate | date: 'dd/MM/yyyy'}}</td>
-                          <td>{{ campaign.endDate | date: 'dd/MM/yyyy'}}</td>
-                          <td>{{ campaign.active ? 'Sim' : 'Não'}}</td>
+                          <td>{{ campaign.endDate | date: 'dd/MM/yyyy'}}</td>                          
+                          <td>
+                            <i class="material-icons check_box" *ngIf="campaign.active">
+                                check_box
+                            </i>
+                            <i class="material-icons indeterminate_check_box" *ngIf="!campaign.active">
+                                indeterminate_check_box
+                            </i>
+                        </td>
                           <td>
                               <button class="action-button" mat-icon-button [matMenuTriggerFor]="actionsMenu">
                                   <mat-icon>menu</mat-icon>

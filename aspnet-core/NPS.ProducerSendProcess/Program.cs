@@ -53,6 +53,8 @@ namespace NPS.ProducerSendProcess
                                              basicProperties: null,
                                              body: body);
                     }
+
+                    // Update process...
                 }
             }
         }

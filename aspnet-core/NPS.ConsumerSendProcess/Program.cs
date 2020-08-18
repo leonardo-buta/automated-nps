@@ -14,6 +14,8 @@ namespace NPS.ConsumerSendProcess
     class Program
     {
         private static readonly AutoResetEvent _waitHandle = new AutoResetEvent(false);
+        private static readonly Repository _repository = new Repository();
+        private static readonly EmailSender _sender = new EmailSender();
 
         static void Main(string[] args)
         {
@@ -29,7 +31,7 @@ namespace NPS.ConsumerSendProcess
                 var consumer = new EventingBasicConsumer(channel);
                 consumer.Received += (model, e) =>
                 {
-                    Consumer_Received(e);
+                    Consumer_ReceivedAsync(e);
                     channel.BasicAck(e.DeliveryTag, false);
                 };
 
@@ -53,14 +55,13 @@ namespace NPS.ConsumerSendProcess
             }
         }
 
-        private static void Consumer_Received(BasicDeliverEventArgs e)
+        private static void Consumer_ReceivedAsync(BasicDeliverEventArgs e)
         {
-            var body = e.Body.Span;
+            ReadOnlySpan<byte> body = e.Body.Span;
             var message = JsonConvert.DeserializeObject<SendProcessModel>(Encoding.UTF8.GetString(body));
 
-            // lógica de enviar email
-
-            new Repository().InsertSendProcessReport(message);
+            _sender.SendEmail(message.Recipient, message.Subject, message.Text);
+            _repository.InsertSendProcessReport(message);
         }
     }
 }

@@ -45,7 +45,7 @@ export class CreateCampaignDialogComponent extends AppComponentBase
     this.saving = true;
     const campaign = new CampaignDto();
     campaign.init(this.campaign);
-    this.campaign.active = true;
+    campaign.active = true;
 
     this._campaignService
       .create(campaign)
